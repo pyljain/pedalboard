@@ -1,0 +1,32 @@
+port: 8080
+authentication:
+  api_key: my-api-key
+routes:
+- path: /openai/api/v1/chat/completions
+  responses:
+  - status: 200
+    body: |
+      {
+        "choices": [
+          {
+            "message": {
+              "role": "assistant",
+              "content": "Hello, how can I help you today?"
+            }
+          }
+        ]
+      }
+    probability: 80
+  - status: 429
+    body: |
+      {
+        "error": {
+          "code": "rate_limit_exceeded",
+          "message": "Rate limit exceeded"
+        }
+      }
+    probability: 20
+  latency:
+    min: 300
+    max: 4000
+  
